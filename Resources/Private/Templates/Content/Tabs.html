@@ -1,0 +1,149 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers"
+      xmlns:se="http://typo3.org/ns/SalvatoreEckel/T3cms/ViewHelpers">
+
+<f:layout name="Content"/>
+
+<f:section name="Configuration">
+    <flux:form id="tabs" label="Tabs" options="{group: 'MobApp',Fluidcontent: {sorting:84},icon:'EXT:t3content_mobapp/ext_icon.png'}" localLanguageFileRelativePath="/Resources/Private/Language/locallang_tabs.xlf">
+
+        <flux:form.sheet name="tabsSheet" label="Tabs" variables="{_all}">
+            <flux:form.section name="settings.tabs" label="Tabs">
+                <flux:form.object name="tab" label="Tab">
+                    <flux:field.input name="title" label="Tab Title" default="TabTitle" />
+                    <flux:field.checkbox
+                                name="showContentElement"
+                                label="Show content element instead of richtext"
+                                default="NULL"
+                                required=""
+                                requestUpdate="1" />
+                    <flux:field.text
+                                name="richtext"
+                                displayCond="FIELD:showContentElement:!=:1"
+                                rows="5"
+                                cols="30"
+                                enableRichText="TRUE" />
+                    <flux:field.file
+                                name="image"
+                                displayCond="FIELD:showContentElement:!=:1"
+                                allowed="jpg,png,svg"
+                                showThumbnails="1"
+                                label="Image"
+                                minItems="0"
+                                maxItems="1" />
+                    <flux:field.select
+                                name="imagePosition"
+                                displayCond="FIELD:showContentElement:!=:1"
+                                label="Image Position"
+                                default=""
+                                items="{
+                                    0:{0:'Auto',1:''},
+                                    1:{0:'Left',1:'1'},
+                                    2:{0:'Right',1:'2'}
+                                }"/>
+                    <flux:field.input
+                                name="contentElementUid"
+                                displayCond="FIELD:showContentElement:=:1"
+                                label="Content Element Uid"
+                                default="" />
+                </flux:form.object>
+            </flux:form.section>
+        </flux:form.sheet>
+        <flux:form.sheet name="optionsSheet" label="Options" variables="{_all}">
+        </flux:form.sheet>
+
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+Tabs
+<hr/>
+    <f:if condition="{settings.tabs}">
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+        <f:for each="{settings.tabs}" as="obj" key="id" iteration="tabsIterator">
+            <f:if condition="{obj.tab}">
+              <li class="nav-item">
+                <a class="nav-link {f:if(condition:tabsIterator.isFirst,then:'active')}" data-toggle="tab" href="#tab{id}">{obj.tab.title}</a>
+              </li>
+            </f:if>
+        </f:for>
+      </ul>
+      <div class="tab-content">
+        <f:for each="{settings.tabs}" as="obj" key="id" iteration="tabsIterator">
+            <f:if condition="{obj.tab}">
+              <div class="tab-pane fade {f:if(condition:tabsIterator.isFirst,then:'show active')}" id="tab{id}">
+                <f:if condition="{obj.tab.showContentElement}">
+                  <f:then>
+                    <p><strong>Content Element Uid:</strong> {obj.tab.contentElementUid}</p>
+                  </f:then>
+                  <f:else>
+                    <div class="d-flex flex-column flex-lg-row">
+                      <f:if condition="{obj.tab.imagePosition} < 2">
+                        <f:if condition="{obj.tab.image}">
+                          <img src="{f:uri.image(width:'100c',height:'100c',src:obj.tab.image,treatIdAsReference:'1')}" alt="graphic" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                        </f:if>
+                      </f:if>
+                      <f:if condition="{obj.tab.richtext}">
+                        <div>{obj.tab.richtext->f:format.raw()}</div>
+                      </f:if>
+                      <f:if condition="{obj.tab.imagePosition} == 2">
+                        <f:if condition="{obj.tab.image}">
+                          <img src="{f:uri.image(src:obj.tab.image,treatIdAsReference:'1')}" alt="graphic" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                        </f:if>
+                      </f:if>
+                    </div>
+                  </f:else>
+                </f:if>
+              </div>
+            </f:if>
+        </f:for>
+      </div>
+    </f:if>
+</f:section>
+
+<f:section name="Main">
+    <f:if condition="{settings.tabs}">
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+        <f:for each="{settings.tabs}" as="obj" key="id" iteration="tabsIterator">
+            <f:if condition="{obj.tab}">
+              <li class="nav-item">
+                <a class="nav-link {f:if(condition:tabsIterator.isFirst,then:'active')}" data-toggle="tab" href="#tab{id}">{obj.tab.title}</a>
+              </li>
+            </f:if>
+        </f:for>
+      </ul>
+      <div class="tab-content">
+        <f:for each="{settings.tabs}" as="obj" key="id" iteration="tabsIterator">
+            <f:if condition="{obj.tab}">
+              <div class="tab-pane fade {f:if(condition:tabsIterator.isFirst,then:'show active')}" id="tab{id}">
+                <f:if condition="{obj.tab.showContentElement}">
+                  <f:then>
+                    {f:cObject(typoscriptObjectPath:'lib.fluidLoadRecordMobApp',data:obj.tab.contentElementUid)}
+                  </f:then>
+                  <f:else>
+                    <div class="d-flex flex-column flex-lg-row">
+                      <f:if condition="{obj.tab.imagePosition} < 2">
+                        <f:if condition="{obj.tab.image}">
+                          <img src="{f:uri.image(src:obj.tab.image,treatIdAsReference:'1')}" alt="graphic" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                        </f:if>
+                      </f:if>
+                      <f:if condition="{obj.tab.richtext}">
+                        <div>{obj.tab.richtext->f:format.raw()}</div>
+                      </f:if>
+                      <f:if condition="{obj.tab.imagePosition} == 2">
+                        <f:if condition="{obj.tab.image}">
+                          <img src="{f:uri.image(src:obj.tab.image,treatIdAsReference:'1')}" alt="graphic" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                        </f:if>
+                      </f:if>
+                    </div>
+                  </f:else>
+                </f:if>
+              </div>
+            </f:if>
+        </f:for>
+      </div>
+    </f:if>
+</f:section>
+
+</div>

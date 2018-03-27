@@ -1,0 +1,115 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers"
+      xmlns:se="http://typo3.org/ns/SalvatoreEckel/T3cms/ViewHelpers">
+
+<f:layout name="Content"/>
+
+<f:section name="Configuration">
+    <flux:form id="pricing" label="Pricing Tables" options="{group: 'MobApp',Fluidcontent: {sorting:80},icon:'EXT:t3content_mobapp/ext_icon.png'}" localLanguageFileRelativePath="/Resources/Private/Language/locallang_pricing.xlf">
+
+        <flux:form.sheet name="pricingTablesSheet" label="Pricing Tables" variables="{_all}">
+            <flux:form.section name="settings.pricingTables" label="Pricing Tables">
+                <flux:form.object name="pricingTable" label="Pricing Table">
+                    <flux:field.checkbox name="popular"
+                               label="Is Popuplar"
+                               default="NULL"
+                               required=""
+                               requestUpdate="0" />
+                    <flux:field.input name="name" label="Title" default="BASIC PLAN" />
+                    <flux:field.input name="price" label="Price" default="€19" />
+                    <flux:field.input name="recurring" label="Recurring" default="/m" />
+                    <flux:field.input name="buttonText" label="Button Text" default="CHOOSE THIS PLAN" />
+                    <flux:field.input name="buttonLink" label="Button Link">
+                        <flux:wizard.link label="'Link wizard'" width="800" height="800"></flux:wizard.link>
+                    </flux:field.input>
+                    <flux:field.select name="buttonStyle"
+                                     label="Button Style"
+                                     default="btn-primary"
+                                     items="{
+                                         0:{0:'btn-primary',1:'btn-primary'},
+                                         1:{0:'btn-info',1:'btn-info'},
+                                         2:{0:'btn-warning',1:'btn-warning'},
+                                         3:{0:'btn-danger',1:'btn-danger'},
+                                         4:{0:'btn-success',1:'btn-success'},
+                                         5:{0:'btn-secondary',1:'btn-secondary'}
+                                      }"/>
+                    <flux:field.input name="feature1" label="Feature Row 1" default="Feature 1" />
+                    <flux:field.input name="feature2" label="Feature Row 2" default="Feature 2" />
+                    <flux:field.input name="feature3" label="Feature Row 3" default="Feature 3" />
+                    <flux:field.input name="feature4" label="Feature Row 4" default="<del>No Feature</del>" />
+                    <flux:field.input name="feature5" label="Feature Row 5" default="<del>No Feature</del>" />
+                    <flux:field.input name="feature6" label="Feature Row 6" />
+                    <flux:field.input name="feature7" label="Feature Row 7" />
+                </flux:form.object>
+            </flux:form.section>
+        </flux:form.sheet>
+        <flux:form.sheet name="optionsSheet" label="Options" variables="{_all}">
+        </flux:form.sheet>
+
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+    <small><strong>FCE: Pricing Tables</strong></small>
+    <hr/>
+    <f:if condition="{settings.pricingTables}">
+        <div class="card-deck">
+            <f:for each="{settings.pricingTables}" as="obj" key="id">
+                <f:if condition="{obj.pricingTable}">
+                  <div class="card pricing {f:if(condition:obj.pricingTable.popular,then:'popular')}">
+                    <div class="card-head">
+                      <small class="text-primary">{obj.pricingTable.name}</small>
+                      <span class="price">{obj.pricingTable.price}<sub>{obj.pricingTable.recurring}</sub></span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <f:if condition="{obj.pricingTable.feature1}"><div class="list-group-item">{obj.pricingTable.feature1->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature2}"><div class="list-group-item">{obj.pricingTable.feature2->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature3}"><div class="list-group-item">{obj.pricingTable.feature3->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature4}"><div class="list-group-item">{obj.pricingTable.feature4->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature5}"><div class="list-group-item">{obj.pricingTable.feature5->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature6}"><div class="list-group-item">{obj.pricingTable.feature6->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature7}"><div class="list-group-item">{obj.pricingTable.feature7->f:format.raw()}</div></f:if>
+                    </ul>
+                    <div class="card-body">
+                      <a href="{f:uri.typolink(parameter:obj.pricingTable.buttonLink)}" class="btn {obj.pricingTable.buttonStyle} btn-lg btn-block">{obj.pricingTable.buttonText}</a>
+                    </div>
+                  </div>
+                </f:if>
+            </f:for>
+        </div>
+        <!-- // end .pricing -->
+    </f:if>
+</f:section>
+
+<f:section name="Main">
+    <f:if condition="{settings.pricingTables}">
+        <div class="card-deck">
+            <f:for each="{settings.pricingTables}" as="obj" key="id">
+                <f:if condition="{obj.pricingTable}">
+                  <div class="card pricing {f:if(condition:obj.pricingTable.popular,then:'popular')}">
+                    <div class="card-head">
+                      <small class="text-primary">{obj.pricingTable.name}</small>
+                      <span class="price">{obj.pricingTable.price}<sub>{obj.pricingTable.recurring}</sub></span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <f:if condition="{obj.pricingTable.feature1}"><div class="list-group-item">{obj.pricingTable.feature1->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature2}"><div class="list-group-item">{obj.pricingTable.feature2->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature3}"><div class="list-group-item">{obj.pricingTable.feature3->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature4}"><div class="list-group-item">{obj.pricingTable.feature4->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature5}"><div class="list-group-item">{obj.pricingTable.feature5->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature6}"><div class="list-group-item">{obj.pricingTable.feature6->f:format.raw()}</div></f:if>
+                      <f:if condition="{obj.pricingTable.feature7}"><div class="list-group-item">{obj.pricingTable.feature7->f:format.raw()}</div></f:if>
+                    </ul>
+                    <div class="card-body">
+                      <a href="{f:uri.typolink(parameter:obj.pricingTable.buttonLink)}" class="btn {obj.pricingTable.buttonStyle} btn-lg btn-block">{obj.pricingTable.buttonText}</a>
+                    </div>
+                  </div>
+                </f:if>
+            </f:for>
+        </div>
+        <!-- // end .pricing -->
+    </f:if>
+</f:section>
+
+</div>

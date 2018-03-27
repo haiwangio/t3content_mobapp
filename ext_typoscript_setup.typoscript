@@ -1,0 +1,7 @@
+lib.fluidLoadRecordMobApp = RECORDS
+lib.fluidLoadRecordMobApp {
+	source.data = current:1
+	source.intval = 1
+	dontCheckPid = 1
+	tables = tt_content
+}

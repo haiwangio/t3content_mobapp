@@ -1,0 +1,47 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers">
+
+<f:layout name="Content"/>
+
+<f:section name="Configuration">
+    <flux:form id="sectionGeneral" options="{group:'MobApp',Fluidcontent: {sorting:10},icon:'EXT:t3content_mobapp/ext_icon.png'}" localLanguageFileRelativePath="/Resources/Private/Language/locallang_sectiongeneral.xlf">
+        <flux:field.input name="settings.subheadline" label="Subheadline" displayCond="FIELD:settings.headline:REQ:true" />
+        <flux:field.input name="settings.headline" label="Headline" />
+        <flux:field.select name="settings.sectionStyle"
+						   label="Section Style"
+						   default=""
+						   items="{
+							0:{0:'',1:''},
+							1:{0:'light-bg',1:'light-bg'}
+						   }"/>
+	    <flux:grid>
+	        <flux:grid.row>
+	            <flux:grid.column colspan="12" name="content" />
+	        </flux:grid.row>
+	    </flux:grid>
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+Section General
+<hr/>
+<f:if condition="{settings.subheadline}"><small>{settings.subheadline}</small></f:if>
+<f:if condition="{settings.headline}"><h4>{settings.headline}</h4></f:if>
+</f:section>
+
+<f:section name="Main">
+	<div class="section {settings.sectionStyle}">
+		<div class="container">
+			<f:if condition="{settings.headline}">
+				<div class="section-title">
+					<f:if condition="{settings.subheadline}"><small>{settings.subheadline}</small></f:if>
+					<h3>{settings.headline}</h3>
+				</div>
+			</f:if>
+			<flux:content.render area="content" />
+		</div>
+	</div><!-- // end .section -->
+</f:section>
+
+</div>

@@ -1,0 +1,62 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers">
+
+<f:layout name="Content"/>
+
+<f:section name="Configuration">
+    <flux:form id="hero" options="{group:'MobApp',Fluidcontent: {sorting:45},icon:'EXT:t3content_mobapp/ext_icon.png'}" localLanguageFileRelativePath="/Resources/Private/Language/locallang_hero.xlf">
+        <flux:form.sheet name="heroSheet" label="General" variables="{_all}">
+          <flux:field.input name="settings.headline" label="Headline" />
+          <flux:field.input name="settings.subheadline" label="Subheadline" />
+          <flux:field.file name="image" allowed="jpg,png,svg" showThumbnails="1" label="Image" minItems="0" maxItems="1" />
+        </flux:form.sheet>
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+Hero
+<hr/>
+  <header class="bg-gradient">
+    <div class="container mt-5">
+      <f:if condition="{settings.headline}">
+        <h1>{settings.headline}</h1>
+      </f:if>
+      <f:if condition="{settings.subheadline}">
+        <p class="tagline">{settings.subheadline}</p>
+      </f:if>
+    </div>
+    <f:if condition="{settings.image}">
+      <f:then>
+        <div class="img-holder mt-3"><img src="{f:uri.image(src:settings.image,treatIdAsReference:1,width:'200c',width:'200c')}" alt="phone" class="img-fluid"></div>
+      </f:then>
+      <f:else>
+        <br/>
+      </f:else>
+    </f:if>
+  </header>
+</f:section>
+
+<f:section name="Main">
+  <header class="bg-gradient">
+    <div class="container mt-5">
+      <f:if condition="{settings.headline}">
+        <h1>{settings.headline}</h1>
+      </f:if>
+      <f:if condition="{settings.subheadline}">
+        <p class="tagline">{settings.subheadline}</p>
+      </f:if>
+    </div>
+    <f:if condition="{settings.image}">
+      <f:then>
+        <div class="img-holder mt-3"><img src="{f:uri.image(src:settings.image,treatIdAsReference:0)}" alt="phone" class="img-fluid"></div>
+      </f:then>
+      <f:else>
+        <br/>
+      </f:else>
+    </f:if>
+  </header>
+</f:section>
+
+</div>
+

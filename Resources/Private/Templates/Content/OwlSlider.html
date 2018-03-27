@@ -1,0 +1,103 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers"
+      xmlns:se="http://typo3.org/ns/SalvatoreEckel/T3cms/ViewHelpers">
+
+<f:layout name="Content"/>
+
+<f:section name="Configuration">
+    <flux:form id="owlSlider" label="Owl Slider" options="{group: 'MobApp',Fluidcontent: {sorting:83},icon:'EXT:t3content_mobapp/ext_icon.png'}" localLanguageFileRelativePath="/Resources/Private/Language/locallang_owlSlider.xlf">
+
+        <flux:form.sheet name="optionsSheet" label="Options" variables="{_all}">
+                    <flux:field.select name="settings.sliderConfig"
+                                     label="OwlSlider Configuration"
+                                     default="img-gallery"
+                                     items="{
+                                         0:{0:'img-gallery',1:'img-gallery'},
+                                         1:{0:'testimonials',1:'testimonials'}
+                                      }"/>
+                    <flux:field.select name="settings.sliderTheme"
+                                     label="OwlSlider Theme"
+                                     default="owl-theme"
+                                     items="{
+                                         0:{0:'',1:''},
+                                         1:{0:'owl-theme',1:'owl-theme'}
+                                      }"/>
+        </flux:form.sheet>
+        <flux:form.sheet name="itemsTablesSheet" label="Items" variables="{_all}">
+            <flux:form.section name="settings.items" label="Items">
+                <flux:form.object name="item" label="Item">
+                    <flux:field.file name="image" allowed="jpg,png,svg" showThumbnails="1" label="Image" minItems="1" maxItems="1" />
+                    <flux:field.input name="text" label="Text (For testimonials, not for image gallery)" default="" />
+                    <flux:field.input name="belowTitle" label="Below Title (For testimonials, not for image gallery)" default="" />
+                    <flux:field.input name="belowSubtitle" label="Below Subtitle (For testimonials, not for image gallery)" default="" />
+                </flux:form.object>
+            </flux:form.section>
+        </flux:form.sheet>
+
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+OwlSlider
+<hr/>
+    <f:if condition="{settings.items}">
+      <div class="{settings.sliderConfig} owl-carousel {settings.sliderTheme}">
+        <f:for each="{settings.items}" as="obj" key="id">
+            <f:if condition="{obj.item}">
+              <f:switch expression="{settings.sliderConfig}">
+                <f:case value="testimonials">
+                  <div class="testimonials-single">
+                    <f:image src="{obj.item.image}" treatIdAsReference="1" width="110c" height="110c" alt="client" class="client-img" />
+                    <f:if condition="{obj.item.text}">
+                      <blockquote class="blockquote">{obj.item.text}</blockquote>
+                    </f:if>
+                    <f:if condition="{obj.item.belowTitle}">
+                      <h5 class="mt-4 mb-2">{obj.item.belowTitle}</h5>
+                    </f:if>
+                    <f:if condition="{obj.item.belowSubtitle}">
+                      <p class="text-primary">{obj.item.belowSubtitle}</p>
+                    </f:if>
+                  </div>
+                </f:case>
+                <f:case default="1">
+                    <f:image src="{obj.item.image}" treatIdAsReference="1" alt="image" width="110c" height="110c" />
+                </f:case>
+              </f:switch>
+            </f:if>
+        </f:for>
+      </div>
+    </f:if>
+</f:section>
+
+<f:section name="Main">
+    <f:if condition="{settings.items}">
+      <div class="{settings.sliderConfig} owl-carousel {settings.sliderTheme}">
+        <f:for each="{settings.items}" as="obj" key="id">
+            <f:if condition="{obj.item}">
+              <f:switch expression="{settings.sliderConfig}">
+                <f:case value="testimonials">
+                  <div class="testimonials-single">
+                    <f:image src="{obj.item.image}" treatIdAsReference="1" width="110c" height="110c" alt="client" class="client-img" />
+                    <f:if condition="{obj.item.text}">
+                      <blockquote class="blockquote">{obj.item.text}</blockquote>
+                    </f:if>
+                    <f:if condition="{obj.item.belowTitle}">
+                      <h5 class="mt-4 mb-2">{obj.item.belowTitle}</h5>
+                    </f:if>
+                    <f:if condition="{obj.item.belowSubtitle}">
+                      <p class="text-primary">{obj.item.belowSubtitle}</p>
+                    </f:if>
+                  </div>
+                </f:case>
+                <f:case default="1">
+                  <f:image src="{obj.item.image}" treatIdAsReference="1" alt="image" style="height:auto;" />
+                </f:case>
+              </f:switch>
+            </f:if>
+        </f:for>
+      </div>
+    </f:if>
+</f:section>
+
+</div>

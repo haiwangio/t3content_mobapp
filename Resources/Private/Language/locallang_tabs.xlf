@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="t3content_mobapp" date="2017-11-11T21:20:35+00:00">
+		<header/>
+		<body>
+			<trans-unit id="flux.tabs">
+				<source>Tabs</source>
+			</trans-unit>
+			<trans-unit id="flux.tabs.description">
+				<source>Create multiple tabs to display content</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
