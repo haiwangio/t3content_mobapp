@@ -4,7 +4,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'TYPO3 Content - MobApp',
-    'description' => 'This extension provides flux content elements for the t3cms theme mobapp',
+    'description' => 'This extension provides flux content elements for the t3cms theme MobApp',
     'category' => 'templates',
     'author' => 'Salvatore Eckel',
     'author_email' => 'salvaracer@gmx.de',
