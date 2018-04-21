@@ -18,5 +18,5 @@ Links
 	https://forge.typo3.org/projects/extension-t3content_mobapp/issues
 
 :Git Repository:
-	https://bitbucket.org/salvaracer/t3content_mobapp
+	https://bitbucket.org/SalvatoreEckel/t3content_mobapp
 
