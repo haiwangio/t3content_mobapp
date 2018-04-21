@@ -7,7 +7,7 @@ conf.py:
   copyright: 2018
   project: TYPO3 Content - MobApp (Deutsch)
   version: 2.2
-  release: 2.2.0
+  release: 2.2.1
   latex_documents:
   - - Index
     - t3content_mobapp.tex

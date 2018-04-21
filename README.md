@@ -5,7 +5,7 @@ This extension provides flux content elements for the t3cms theme mobapp
 ### General Information ###
 
 * t3content_mobapp
-* v2.2.0
+* v2.2.1
 
 ### How do I get set up? ###
 
