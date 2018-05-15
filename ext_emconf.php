@@ -13,14 +13,14 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '2.2.2',
+    'version' => '2.2.3',
     'constraints' => [
         'depends' => [
             'typo3' => '7.6.18-8.99.99',
         ],
         'conflicts' => [],
         'suggests' => [
-            't3themes_mobapp' => '2.2.2',
+            't3themes_mobapp' => '2.2.3',
         ],
     ],
 ];
